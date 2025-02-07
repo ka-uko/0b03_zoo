@@ -9,7 +9,7 @@
 # 5. Создайте классы для сотрудников, например, `ZooKeeper`, `Veterinarian`, которые могут иметь специфические
 # методы (например, `feed_animal()` для `ZooKeeper` и `heal_animal()` для `Veterinarian`)
 
-class Animal():
+class Animal:
     def __init__(self, name, age):
         self.name = name
         self.age = age
@@ -21,7 +21,8 @@ class Animal():
         pass
 
     def info(self):
-        print(f'{self.name}, возраст: {self.age} года/лет')
+        return f'{self.name}, возраст: {self.age} года/лет\n'
+
 
 class Bird(Animal):
     def __init__(self, name, age, colour):
@@ -34,15 +35,14 @@ class Bird(Animal):
     def eat_bird(self):
         print(f'{self.name} питается зернами и насекомыми')
 
-    def info_bird(self):
-        self.info()
-        print(f'Окрас : {self.colour}')
+    def info(self):
+        return super().info() + f'Окрас: {self.colour}\n'
 
 
 class Mammal(Animal):
-    def __init__(self, name, age, dimensione):
+    def __init__(self, name, age, dimension):
         super().__init__(name, age)
-        self.dimension = dimensione
+        self.dimension = dimension
 
     def eat_mammal(self):
         print(f'{self.name} питается травой и листьями')
@@ -50,15 +50,14 @@ class Mammal(Animal):
     def make_sound(self):
         print(f'Звучит как {self.name}')
 
-    def info_mammal(self):
-        self.info()
-        print(f'Размерность : {self.dimension} млекопитающее')
+    def info(self):
+        return super().info() + f'Размерность: {self.dimension} млекопитающее\n'
 
 
 class Reptile(Animal):
-    def __init__(self, name, age, type):
+    def __init__(self, name, age, reptile_type):
         super().__init__(name, age)
-        self.type = type
+        self.type = reptile_type
 
     def make_sound(self):
         print(f'Звучит как {self.name}')
@@ -66,14 +65,15 @@ class Reptile(Animal):
     def eat_reptile(self):
         print(f'{self.name} питается насекомыми')
 
-    def info_reptile(self):
-        self.info()
-        print(f'Тип пресмыкающегося: {self.type}')
+    def info(self):
+        return super().info() + f'Тип пресмыкающегося: {self.type}\n'
+
 
 def animal_sound(animals):
     for animal in animals:
         print(f'{animal.name}', end=' ')
         animal.make_sound()
+
 
 class Employee:
     def __init__(self, name, position):
@@ -81,7 +81,7 @@ class Employee:
         self.position = position
 
     def info(self):
-        print(f'Сотрудник: {self.name}, должность: {self.position}')
+        return f'Сотрудник: {self.name}, должность: {self.position}\n'
 
 class ZooKeeper(Employee):
     def feed_animal(self, animal):
@@ -91,6 +91,7 @@ class ZooKeeper(Employee):
 class Veterinarian(Employee):
     def heal_animal(self, animal):
         print(f'{self.name} лечит {animal.name}')
+
 
 class Zoo:
     def __init__(self):
@@ -106,32 +107,25 @@ class Zoo:
         print(f'Сотрудник {employee.name} добавлен в зоопарк.')
 
     def show_animals(self):
-        print('Животные в зоопарке:')
+        result = 'Животные в зоопарке:\n'
         for animal in self.animals:
-            animal.info()
+            result += animal.info()
+        return result
 
     def show_employees(self):
-        print('Сотрудники зоопарка:')
+        result = 'Сотрудники зоопарка:\n'
         for employee in self.employees:
-            employee.info()
+            result += employee.info()
+        return result
+
 
 zoo = Zoo()
 
-bird1= Bird("Лебедь","2","Белый")
-bird2= Bird("Павлин","3","Многоцетный")
-mammal1 = Mammal("Слон", "10","крупное")
-mammal2 = Mammal("Козел", "2","среднее")
-reptile1 = Reptile("Кобра","2","наземное")
-
-bird1.make_sound()
-
-bird2.make_sound()
-bird2.eat_bird()
-
-mammal1.make_sound()
-mammal1.eat_mammal()
-
-reptile1.eat_reptile()
+bird1 = Bird("Лебедь", "2", "Белый")
+bird2 = Bird("Павлин", "3", "Многоцветный")
+mammal1 = Mammal("Слон", "10", "крупное")
+mammal2 = Mammal("Козел", "2", "среднее")
+reptile1 = Reptile("Кобра", "2", "наземное")
 
 animals = [bird1, bird2, mammal1, mammal2, reptile1]
 animal_sound(animals)
@@ -148,5 +142,8 @@ veterinarian = Veterinarian("Иван", "Ветеринар")
 zoo.add_employee(zookeeper)
 zoo.add_employee(veterinarian)
 
-zoo.show_animals()
-zoo.show_employees()
+# Запись информации о животных и сотрудниках в файл
+with open("zoo_info.txt", "w", encoding="utf-8") as file:
+    file.write(zoo.show_animals())
+    file.write(zoo.show_employees())
+    
