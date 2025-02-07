@@ -125,7 +125,7 @@ bird1 = Bird("Лебедь", "2", "Белый")
 bird2 = Bird("Павлин", "3", "Многоцветный")
 mammal1 = Mammal("Слон", "10", "крупное")
 mammal2 = Mammal("Козел", "2", "среднее")
-reptile1 = Reptile("Кобра", "2", "наземное")
+reptile1 = Reptile("Кобра", "2", "змеи")
 
 animals = [bird1, bird2, mammal1, mammal2, reptile1]
 animal_sound(animals)
@@ -146,4 +146,3 @@ zoo.add_employee(veterinarian)
 with open("zoo_info.txt", "w", encoding="utf-8") as file:
     file.write(zoo.show_animals())
     file.write(zoo.show_employees())
-    
